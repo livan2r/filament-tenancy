@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\Pages;
 
+use App\Filament\Resources\BaseClasses\EditRecord;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource;
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Facades\DB;
 
 class EditTenant extends EditRecord

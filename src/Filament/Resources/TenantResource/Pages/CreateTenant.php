@@ -2,9 +2,9 @@
 
 namespace TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\Pages;
 
+use App\Filament\Resources\BaseClasses\CreateRecord;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource;
 use Filament\Actions;
-use Filament\Resources\Pages\CreateRecord;
 use Filament\Support\Exceptions\Halt;
 use Filament\Support\Facades\FilamentView;
 use Illuminate\Database\Eloquent\Model;
