@@ -49,13 +49,16 @@ class TenantResource extends Resource
     {
         return Helper::twoColumnsForm($form,
             firstColumn: [
-                Section::make(__('admin.user-details'))
-                    ->icon('heroicon-o-user')
+                Section::make(__('admin.tenant-details'))
+                    ->icon('heroicon-o-globe-alt')
                     ->iconColor('primary')
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label(trans('filament-tenancy::messages.columns.name'))
+                            ->prefixIcon('heroicon-o-user')
+                            ->prefixIconColor('secondary')
                             ->required()
+                            ->helperText(__('admin.tenant-name-desc'))
                             ->unique(table:'tenants', ignoreRecord: true)->live(onBlur: true)
                             ->afterStateUpdated(function(Forms\Set $set, $state) {
                                 $set('id', $slug = \Str::of($state)->slug('_')->toString());
@@ -63,7 +66,10 @@ class TenantResource extends Resource
                             }),
                         Forms\Components\TextInput::make('id')
                             ->label(trans('filament-tenancy::messages.columns.unique_id'))
+                            ->prefixIcon('heroicon-o-identification')
+                            ->prefixIconColor('secondary')
                             ->required()
+                            ->helperText(__('admin.tenant-id-desc'))
                             ->disabled(fn($context) => $context !=='create')
                             ->unique(table: 'tenants', ignoreRecord: true),
                         Forms\Components\TextInput::make('domain')
@@ -72,19 +78,28 @@ class TenantResource extends Resource
                             ->required()
                             ->visible(fn($context) => $context ==='create')
                             ->unique(table: 'domains',ignoreRecord: true)
+                            ->helperText(__('admin.tenant-domain-desc'))
                             ->prefix(request()->getScheme()."://")
-                            ->suffix(".".request()->getHost())
-                        ,
+                            ->suffix(".".request()->getHost()),
                         Forms\Components\TextInput::make('email')
                             ->label(trans('filament-tenancy::messages.columns.email'))
+                            ->prefixIcon('heroicon-o-at-symbol')
+                            ->prefixIconColor('secondary')
                             ->required()
+                            ->helperText(__('admin.valid-email'))
                             ->email(),
                         Forms\Components\TextInput::make('phone')
                             ->label(trans('filament-tenancy::messages.columns.phone'))
-                            ->tel(),
+                            ->prefixIcon('heroicon-o-phone')
+                            ->prefixIconColor('secondary')
+                            ->tel()
+                            ->helperText(__('admin.valid-telephone')),
                         Forms\Components\TextInput::make('password')
                             ->label(trans('filament-tenancy::messages.columns.password'))
+                            ->prefixIcon('heroicon-o-lock-closed')
+                            ->prefixIconColor('secondary')
                             ->password()
+                            ->helperText(__('admin.password-req'))
                             ->revealable(filament()->arePasswordsRevealable())
                             ->rule(Password::default())
                             ->autocomplete('new-password')
@@ -94,15 +109,25 @@ class TenantResource extends Resource
                             ->same('passwordConfirmation'),
                         Forms\Components\TextInput::make('passwordConfirmation')
                             ->label(trans('filament-tenancy::messages.columns.passwordConfirmation'))
+                            ->prefixIcon('heroicon-o-lock-closed')
+                            ->prefixIconColor('secondary')
                             ->password()
+                            ->helperText(__('admin.password-confirm-desc'))
                             ->revealable(filament()->arePasswordsRevealable())
                             ->dehydrated(false),
-                        Forms\Components\Toggle::make('is_active')
-                            ->label(trans('filament-tenancy::messages.columns.is_active'))
-                            ->default(true),
                     ])->columnSpan(3)
                     ->columns(2)
                     ->inlineLabel(false)
+            ],secondColumn: [
+                Section::make(__('admin.tenant-settings'))
+                    ->icon('heroicon-o-cog')
+                    ->iconColor('primary')
+                    ->schema([
+                        Forms\Components\Toggle::make('is_active')
+                            ->label(trans('filament-tenancy::messages.columns.is_active'))
+                            ->default(true)
+                            ->helperText(__('admin.tenant-status')),
+                    ])->inlineLabel(false),
             ]);
     }
 
