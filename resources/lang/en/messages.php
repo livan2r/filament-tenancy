@@ -17,6 +17,16 @@ return [
         "created_at" => "Created At",
         "updated_at" => "Updated At",
     ],
+    "desc" => [
+        "name" => "Tenant name like company name or personal name",
+        "unique_id" => "Unique Tenant slug, use only lowercase letters, numbers, and hyphens",
+        "domain" => "Domain name to access the tenant website and admin panel",
+        "email" => "A valid email address",
+        "phone" => "A valid telephone number",
+        "password" => "Access password minimum 8 characters, including uppercase, lowercase, and numbers",
+        "passwordConfirmation" => "Confirm the password entered previously",
+        "is_active" => "The account status of the tenant",
+    ],
     "actions" => [
         "view" => "Open Tenant",
         "login" => "Login To Tenant",
@@ -31,6 +41,10 @@ return [
             "domain" => "Domain",
             "full" => "Full Domain",
         ],
-    ]
+    ],
+    "sections" => [
+        "details" => "Setup Details",
+        "settings" => "Other Adjustments",
+    ],
 
 ];

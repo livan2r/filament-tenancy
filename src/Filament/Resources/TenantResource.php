@@ -49,7 +49,7 @@ class TenantResource extends Resource
     {
         return Helper::twoColumnsForm($form,
             firstColumn: [
-                Section::make(__('admin.tenant.details'))
+                Section::make(__('filament-tenancy::messages.sections.details'))
                     ->icon('heroicon-o-globe-alt')
                     ->iconColor('primary')
                     ->schema([
@@ -58,7 +58,7 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-user')
                             ->prefixIconColor('secondary')
                             ->required()
-                            ->helperText(__('admin.tenant.name.desc'))
+                            ->helperText(__('filament-tenancy::messages.desc.name'))
                             ->unique(table:'tenants', ignoreRecord: true)->live(onBlur: true)
                             ->afterStateUpdated(function(Forms\Set $set, $state) {
                                 $set('id', $slug = \Str::of($state)->slug('_')->toString());
@@ -69,7 +69,7 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-identification')
                             ->prefixIconColor('secondary')
                             ->required()
-                            ->helperText(__('admin.tenant.id.desc'))
+                            ->helperText(__('filament-tenancy::messages.desc.unique_id'))
                             ->disabled(fn($context) => $context !=='create')
                             ->unique(table: 'tenants', ignoreRecord: true),
                         Forms\Components\TextInput::make('domain')
@@ -78,7 +78,7 @@ class TenantResource extends Resource
                             ->required()
                             ->visible(fn($context) => $context ==='create')
                             ->unique(table: 'domains',ignoreRecord: true)
-                            ->helperText(__('admin.tenant-domain-desc'))
+                            ->helperText(__('filament-tenancy::messages.desc.domain'))
                             ->prefix(request()->getScheme()."://")
                             ->suffix(".".request()->getHost()),
                         Forms\Components\TextInput::make('email')
@@ -86,20 +86,20 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-at-symbol')
                             ->prefixIconColor('secondary')
                             ->required()
-                            ->helperText(__('admin.valid-email'))
+                            ->helperText(__('filament-tenancy::messages.desc.email'))
                             ->email(),
                         Forms\Components\TextInput::make('phone')
                             ->label(trans('filament-tenancy::messages.columns.phone'))
                             ->prefixIcon('heroicon-o-phone')
                             ->prefixIconColor('secondary')
                             ->tel()
-                            ->helperText(__('admin.valid-telephone')),
+                            ->helperText(__('filament-tenancy::messages.desc.phone')),
                         Forms\Components\TextInput::make('password')
                             ->label(trans('filament-tenancy::messages.columns.password'))
                             ->prefixIcon('heroicon-o-lock-closed')
                             ->prefixIconColor('secondary')
                             ->password()
-                            ->helperText(__('admin.password-req'))
+                            ->helperText(__('filament-tenancy::messages.desc.password'))
                             ->revealable(filament()->arePasswordsRevealable())
                             ->rule(Password::default())
                             ->autocomplete('new-password')
@@ -112,21 +112,21 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-lock-closed')
                             ->prefixIconColor('secondary')
                             ->password()
-                            ->helperText(__('admin.password-confirm-desc'))
+                            ->helperText(__('filament-tenancy::messages.desc.passwordConfirmation'))
                             ->revealable(filament()->arePasswordsRevealable())
                             ->dehydrated(false),
                     ])->columnSpan(3)
                     ->columns(2)
                     ->inlineLabel(false)
             ],secondColumn: [
-                Section::make(__('admin.tenant.settings'))
+                Section::make(__('filament-tenancy::messages.sections.settings'))
                     ->icon('heroicon-o-cog')
                     ->iconColor('primary')
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
                             ->label(trans('filament-tenancy::messages.columns.is_active'))
                             ->default(true)
-                            ->helperText(__('admin.tenant-status')),
+                            ->helperText(__('filament-tenancy::messages.desc.is_active')),
                     ])->inlineLabel(false),
             ]);
     }
