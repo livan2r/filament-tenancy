@@ -49,7 +49,7 @@ class TenantResource extends Resource
     {
         return Helper::twoColumnsForm($form,
             firstColumn: [
-                Section::make(__('admin.tenant-details'))
+                Section::make(__('admin.tenant.details'))
                     ->icon('heroicon-o-globe-alt')
                     ->iconColor('primary')
                     ->schema([
@@ -58,7 +58,7 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-user')
                             ->prefixIconColor('secondary')
                             ->required()
-                            ->helperText(__('admin.tenant-name-desc'))
+                            ->helperText(__('admin.tenant.name.desc'))
                             ->unique(table:'tenants', ignoreRecord: true)->live(onBlur: true)
                             ->afterStateUpdated(function(Forms\Set $set, $state) {
                                 $set('id', $slug = \Str::of($state)->slug('_')->toString());
@@ -69,7 +69,7 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-identification')
                             ->prefixIconColor('secondary')
                             ->required()
-                            ->helperText(__('admin.tenant-id-desc'))
+                            ->helperText(__('admin.tenant.id.desc'))
                             ->disabled(fn($context) => $context !=='create')
                             ->unique(table: 'tenants', ignoreRecord: true),
                         Forms\Components\TextInput::make('domain')
@@ -119,7 +119,7 @@ class TenantResource extends Resource
                     ->columns(2)
                     ->inlineLabel(false)
             ],secondColumn: [
-                Section::make(__('admin.tenant-settings'))
+                Section::make(__('admin.tenant.settings'))
                     ->icon('heroicon-o-cog')
                     ->iconColor('primary')
                     ->schema([
