@@ -97,6 +97,13 @@ class CreateTenant extends CreateRecord
                     "email" => $record->email,
                     "password" => $record->password,
                 ]);
+            $user = DB::connection('dynamic')
+                ->table('users')
+                ->where('email', $record->email)
+                ->first();
+        }
+        if ($user) {
+            $user->assignRole('admin');
         }
 
         $this->redirect($redirectUrl, navigate: FilamentView::hasSpaMode() && is_app_url($redirectUrl));
