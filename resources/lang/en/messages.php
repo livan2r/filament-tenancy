@@ -16,6 +16,7 @@ return [
         "is_active" => "Is Active",
         "created_at" => "Created At",
         "updated_at" => "Updated At",
+        "role" => "Role",
     ],
     "desc" => [
         "name" => "Tenant name like company name or personal name",
@@ -26,6 +27,7 @@ return [
         "password" => "Access password minimum 8 characters, including uppercase, lowercase, and numbers",
         "passwordConfirmation" => "Confirm the password entered previously",
         "is_active" => "The account status of the tenant",
+        "role" => "User role in the system",
     ],
     "actions" => [
         "view" => "Open Tenant",

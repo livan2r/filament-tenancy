@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\Pages;
 
 use App\Filament\Resources\BaseClasses\CreateRecord;
+use App\Models\User;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource;
 use Filament\Actions;
 use Filament\Support\Exceptions\Halt;
@@ -102,8 +103,9 @@ class CreateTenant extends CreateRecord
                 ->where('email', $record->email)
                 ->first();
         }
-        if ($user) {
-            $user->assignRole('admin');
+
+        if (!empty($user)) {
+            $this->assignRole($user->id);
         }
 
         $this->redirect($redirectUrl, navigate: FilamentView::hasSpaMode() && is_app_url($redirectUrl));
@@ -122,5 +124,30 @@ class CreateTenant extends CreateRecord
         $record = $record::find($record->id);
         $record->domains()->create(['domain' => collect($data)->get('domain')]);
         return $record;
+    }
+
+    /**
+     * Assign a role to the new user
+     * @param int $userId
+     * @param string $roleName
+     *
+     * @return void
+     */
+    private function assignRole(int $userId, string $roleName = 'admin'): void
+    {
+        $role = DB::connection('dynamic')
+            ->table('roles')
+            ->where('name', $roleName)
+            ->first();
+
+        if (!empty($role)) {
+            DB::connection('dynamic')
+                ->table('model_has_roles')
+                ->insert([
+                    "model_type" => User::class,
+                    "model_id" => $userId,
+                    "role_id" => $role->id,
+                ]);
+        }
     }
 }

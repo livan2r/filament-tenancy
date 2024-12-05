@@ -16,6 +16,7 @@ return [
         "is_active" => "Activo",
         "created_at" => "Creado En",
         "updated_at" => "Actualizado En",
+        "role" => "Rol",
     ],
     "desc" => [
         "name" => "Nombre del inquilino tal como nombre de la empresa o nombre personal",
@@ -26,6 +27,7 @@ return [
         "password" => "Contraseña de acceso mínimo 8 caracteres, incluyendo mayúsculas, minúsculas y números",
         "passwordConfirmation" => "Confirmar la contraseña ingresada anteriormente",
         "is_active" => "El estado de la cuenta del inquilino",
+        "role" => "Rol de usuario en el sistema",
     ],
     "actions" => [
         "view" => "Ver",

@@ -4,7 +4,9 @@ namespace TomatoPHP\FilamentTenancy\Filament\Resources;
 
 use App\Filament\Resources\Helper;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\Pages;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\RelationManagers;
 use Filament\Forms;
@@ -104,6 +106,7 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-lock-closed')
                             ->prefixIconColor('secondary')
                             ->password()
+                            ->visible(fn($context) => $context !=='view')
                             ->helperText(__('filament-tenancy::messages.desc.password'))
                             ->revealable(filament()->arePasswordsRevealable())
                             ->rule(Password::default())
@@ -117,6 +120,7 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-lock-closed')
                             ->prefixIconColor('secondary')
                             ->password()
+                            ->visible(fn($context) => $context !=='view')
                             ->helperText(__('filament-tenancy::messages.desc.passwordConfirmation'))
                             ->revealable(filament()->arePasswordsRevealable())
                             ->dehydrated(false),
