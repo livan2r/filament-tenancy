@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\Pages;
 
 use App\Filament\Resources\BaseClasses\EditRecord;
+use Filament\Actions\Action;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource;
 use Filament\Actions;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,11 @@ class EditTenant extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('back')
+                ->url(TenantResource::getUrl())
+                ->label(__('admin.return'))
+                ->color('gray')
+                ->icon('heroicon-o-arrow-left'),
             Actions\Action::make('open')
                 ->label(trans('filament-tenancy::messages.actions.view'))
                 ->icon('heroicon-s-link')

@@ -4,6 +4,7 @@ namespace TomatoPHP\FilamentTenancy\Filament\Resources;
 
 use App\Filament\Resources\Helper;
 use Filament\Forms\Components\Section;
+use Illuminate\Support\Str;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\Pages;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\RelationManagers;
 use Filament\Forms;
@@ -58,20 +59,24 @@ class TenantResource extends Resource
                             ->prefixIcon('heroicon-o-user')
                             ->prefixIconColor('secondary')
                             ->required()
+                            ->live(onBlur: true)
                             ->helperText(__('filament-tenancy::messages.desc.name'))
                             ->unique(table:'tenants', ignoreRecord: true)->live(onBlur: true)
                             ->afterStateUpdated(function(Forms\Set $set, $state) {
-                                $set('id', $slug = \Str::of($state)->slug('_')->toString());
-                                $set('domain', \Str::of($state)->slug()->toString());
+                                $set('id', Str::of($state)->slug('_')->toString());
                             }),
                         Forms\Components\TextInput::make('id')
                             ->label(trans('filament-tenancy::messages.columns.unique_id'))
                             ->prefixIcon('heroicon-o-identification')
                             ->prefixIconColor('secondary')
                             ->required()
+                            ->live(onBlur: true)
                             ->helperText(__('filament-tenancy::messages.desc.unique_id'))
                             ->disabled(fn($context) => $context !=='create')
-                            ->unique(table: 'tenants', ignoreRecord: true),
+                            ->unique(table: 'tenants', ignoreRecord: true)
+                            ->afterStateUpdated(function(Forms\Set $set, $state) {
+                                $set('domain', Str::of($state)->slug()->toString());
+                            }),
                         Forms\Components\TextInput::make('domain')
                             ->columnSpanFull()
                             ->label(trans('filament-tenancy::messages.columns.domain'))
