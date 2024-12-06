@@ -105,7 +105,7 @@ class CreateTenant extends CreateRecord
         }
 
         if (!empty($user)) {
-            $this->assignRole($user->id);
+            $this->assignRole($user->id, 'super_admin');
         }
 
         $this->redirect($redirectUrl, navigate: FilamentView::hasSpaMode() && is_app_url($redirectUrl));
