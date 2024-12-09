@@ -45,6 +45,7 @@ class EditTenant extends EditRecord
         }
 
         try {
+            $centralDB = config('database.connections.dynamic.database');
             $dbName = config('tenancy.database.prefix') . $record->id . config('tenancy.database.suffix');
             config(['database.connections.dynamic.database' => $dbName]);
             DB::purge('dynamic');
@@ -71,6 +72,11 @@ class EditTenant extends EditRecord
                 ->table('users')
                 ->insert($updateData);
         }
+
+        // restore central db
+        config(['database.connections.dynamic.database' => $centralDB]);
+        DB::purge('dynamic');
+        DB::connection('dynamic')->getPdo();
 
         return $data;
     }

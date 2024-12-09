@@ -4,20 +4,15 @@ namespace TomatoPHP\FilamentTenancy\Filament\Resources;
 
 use App\Filament\Resources\Helper;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Illuminate\Support\Str;
-use Spatie\Permission\Models\Role;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\Pages;
 use TomatoPHP\FilamentTenancy\Filament\Resources\TenantResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use TomatoPHP\FilamentTenancy\Models\Tenant;
@@ -136,6 +131,14 @@ class TenantResource extends Resource
                             ->label(trans('filament-tenancy::messages.columns.is_active'))
                             ->default(true)
                             ->helperText(__('filament-tenancy::messages.desc.is_active')),
+                        Forms\Components\Select::make('type')
+                            ->label(trans('filament-tenancy::messages.columns.type'))
+                            ->options([
+                                'software_agency' => trans('filament-tenancy::messages.types.software_agency'),
+                            ])
+                            ->default('software_agency')
+                            ->required()
+                            ->helperText(__('filament-tenancy::messages.desc.type')),
                     ])->inlineLabel(false),
             ]);
     }
@@ -153,6 +156,9 @@ class TenantResource extends Resource
                     ->description(function ($record){
                         return request()->getScheme()."://".$record->domains()->first()?->domain .'.'.config('filament-tenancy.central_domain'). '/app';
                     }),
+                Tables\Columns\TextColumn::make('type')
+                    ->label(trans('filament-tenancy::messages.columns.type'))
+                    ->badge(),
                 Tables\Columns\ToggleColumn::make('is_active')
                     ->sortable()
                     ->label(trans('filament-tenancy::messages.columns.is_active'))

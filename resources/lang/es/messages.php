@@ -14,6 +14,7 @@ return [
         "password" => "Contraseña",
         "passwordConfirmation" => "Confirmar Contraseña",
         "is_active" => "Activo",
+        "type" => "Tipo de Sitio Web",
         "created_at" => "Creado En",
         "updated_at" => "Actualizado En",
         "role" => "Rol",
@@ -28,6 +29,7 @@ return [
         "passwordConfirmation" => "Confirmar la contraseña ingresada anteriormente",
         "is_active" => "El estado de la cuenta del inquilino",
         "role" => "Rol de usuario en el sistema",
+        "type" => "Tipo de sitio web o negocio, se utilizará para generar la configuración y características predeterminadas del sitio web",
     ],
     "actions" => [
         "view" => "Ver",
@@ -48,5 +50,7 @@ return [
         "details" => "Detalles de Configuración",
         "settings" => "Otros ajustes",
     ],
-
+    "types" => [
+        "software_agency" => "Agencia de Software",
+    ],
 ];

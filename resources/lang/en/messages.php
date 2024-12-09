@@ -14,6 +14,7 @@ return [
         "password" => "Password",
         "passwordConfirmation" => "Password Confirmation",
         "is_active" => "Is Active",
+        "type" => "Website Type",
         "created_at" => "Created At",
         "updated_at" => "Updated At",
         "role" => "Role",
@@ -28,6 +29,7 @@ return [
         "passwordConfirmation" => "Confirm the password entered previously",
         "is_active" => "The account status of the tenant",
         "role" => "User role in the system",
+        "type" => "Type of website or business, will be used to generate the website default settings and features",
     ],
     "actions" => [
         "view" => "Open Tenant",
@@ -48,5 +50,7 @@ return [
         "details" => "Setup Details",
         "settings" => "Other Adjustments",
     ],
-
+    "types" => [
+        "software_agency" => "Software Agency",
+    ],
 ];

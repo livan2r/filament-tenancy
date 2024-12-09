@@ -21,6 +21,7 @@ class Tenant extends \Stancl\Tenancy\Database\Models\Tenant implements TenantWit
         'otp_code',
         'otp_code_active_at',
         'is_active',
+        'type',
         'data',
     ];
 
@@ -44,6 +45,7 @@ class Tenant extends \Stancl\Tenancy\Database\Models\Tenant implements TenantWit
             'otp_code',
             'otp_code_active_at',
             'is_active',
+            'type',
             'data',
         ];
     }
