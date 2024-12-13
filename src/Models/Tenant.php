@@ -62,14 +62,27 @@ class Tenant extends \Stancl\Tenancy\Database\Models\Tenant implements TenantWit
     }
 
     /**
-     * Set the tenant database.
+     * Set up the tenant database.
      *
      * @param bool $on
      *
      * @return void
+     */
+    public function setup(bool $on = true): void
+    {
+        self::setDB($on, $this->id);
+    }
+
+    /**
+     * Set the tenant database.
+     *
+     * @param bool $on
+     * @param string|null $tenantId
+     *
+     * @return void
      * @see https://tenancyforlaravel.com/docs/v3/early-identification/#early-identification
      */
-    static function setDB(bool $on=true): void
+    static function setDB(bool $on=true, string $tenantId=null): void
     {
         if (!$on && !empty(self::$centralDB)) {
             config(['database.connections.dynamic.database' => self::$centralDB]);
@@ -82,12 +95,14 @@ class Tenant extends \Stancl\Tenancy\Database\Models\Tenant implements TenantWit
             return;
         }
 
-        $host = request()->host();
-        if ($host === config('filament-tenancy.central_domain')) {
-            return;
+        if (empty($tenantId)) {
+            $host = request()->host();
+            if ($host === config('filament-tenancy.central_domain')) {
+                return;
+            }
         }
 
-        $tenantId = explode('.', $host)[0];
+        $tenantId = $tenantId ?? explode('.', $host)[0];
         $record = DB::table('tenants')
             ->where('id', $tenantId)
             ->first();
