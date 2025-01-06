@@ -50,6 +50,7 @@ class TenantResource extends Resource
                 Section::make(__('filament-tenancy::messages.sections.details'))
                     ->icon('heroicon-o-globe-alt')
                     ->iconColor('primary')
+                    ->compact()
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->label(trans('filament-tenancy::messages.columns.name'))
@@ -126,6 +127,7 @@ class TenantResource extends Resource
                 Section::make(__('filament-tenancy::messages.sections.settings'))
                     ->icon('heroicon-o-cog')
                     ->iconColor('primary')
+                    ->compact()
                     ->schema([
                         Forms\Components\Toggle::make('is_active')
                             ->label(trans('filament-tenancy::messages.columns.is_active'))
